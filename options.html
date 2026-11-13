@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Tradovate Discord Alerts</title>
+  <style>
+    html, body { background: #ffe4ef; }
+    body { font: 14px system-ui, sans-serif; color: #2b2b2b; width: 360px; padding: 16px; margin: 0; }
+    h1 { font-size: 16px; margin: 0 0 12px; }
+    label { display: block; margin: 10px 0 4px; font-weight: 600; }
+    input[type=text], input[type=url] { width: 100%; box-sizing: border-box; padding: 6px; background: #fff; border: 1px solid #f3a6c4; border-radius: 4px; }
+    .row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .row label { margin: 0; font-weight: 400; }
+    button { margin-top: 14px; margin-right: 6px; padding: 6px 12px; cursor: pointer; background: #fff; border: 1px solid #f3a6c4; border-radius: 4px; }
+    button:hover { background: #ffd0e2; }
+    #status { margin-top: 10px; min-height: 18px; }
+    .ok { color: #1e8449; } .err { color: #c0392b; }
+    small { color: #666; }
+    hr { border: 0; border-top: 1px solid #f3a6c4; margin: 16px 0 10px; }
+    h2 { font-size: 14px; margin: 0 0 6px; }
+    .panel { background: #fff; border: 1px solid #f3a6c4; border-radius: 6px; padding: 8px 10px; font-size: 12px; }
+    .panel div { margin: 2px 0; word-break: break-all; }
+    #diagnosis { font-weight: 600; margin-bottom: 6px; }
+    #events { font: 11px ui-monospace, Menlo, Consolas, monospace; max-height: 170px; overflow-y: auto; white-space: pre-wrap; margin-top: 6px; }
+    .small-btn { margin-top: 8px; padding: 4px 8px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Tradovate Discord Alerts</h1>
+
+  <label for="webhookUrl">Discord webhook URL</label>
+  <input id="webhookUrl" type="url" placeholder="https://discord.com/api/webhooks/..." />
+
+  <div class="row"><input id="enabled" type="checkbox" /><label for="enabled">Enabled</label></div>
+  <div class="row"><input id="includeDemo" type="checkbox" /><label for="includeDemo">Post demo/sim fills</label></div>
+
+  <label for="accountFilter">Only these accounts <small>(comma-separated, blank = all)</small></label>
+  <input id="accountFilter" type="text" placeholder="e.g. DEMO123456, APEX-1234" />
+
+  <label for="pingRoleId">Role ID to ping <small>(blank = no ping)</small></label>
+  <input id="pingRoleId" type="text" inputmode="numeric" placeholder="e.g. 123456789012345678" />
+
+  <button id="save">Save</button>
+  <button id="test">Send test</button>
+  <div id="status"></div>
+
+  <hr />
+  <h2>Status</h2>
+  <div class="panel">
+    <div id="diagnosis">Loading…</div>
+    <div id="pages"></div>
+    <div id="sockets"></div>
+    <div id="events"></div>
+  </div>
+  <div class="row">
+    <input id="deepCapture" type="checkbox" />
+    <label for="deepCapture"><b>Deep capture</b> <small>(use if fills don't show up; Chrome will show a "debugging" bar)</small></label>
+  </div>
+  <button id="copyDiag" class="small-btn">Copy diagnostics</button>
+  <button id="clearLog" class="small-btn">Clear log</button>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Tradovate Discord Alerts",
+  "version": "1.2.0",
+  "description": "Posts your Tradovate fills (entries, trims and P&L) to a Discord webhook.",
+  "permissions": [
+    "storage",
+    "webRequest",
+    "debugger"
+  ],
+  "host_permissions": [
+    "https://*.tradovate.com/*",
+    "*://*.tradovateapi.com/*",
+    "*://*.ninjatrader.com/*",
+    "https://discord.com/api/webhooks/*",
+    "https://discordapp.com/api/webhooks/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.tradovate.com/*"
+      ],
+      "js": [
+        "tvparser.js",
+        "inject.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "https://*.tradovate.com/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Tradovate Discord Alerts",
+    "default_popup": "options.html"
+  }
+}
